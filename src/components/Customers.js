@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function Customers ( { customers } ) {
+function Customers () {
+  const [customers, setCustomers] = useState( [] );
 
-  console.log( customers );
+  useEffect( () => {
+    const fetchCustomers = async () => {
+      const response = await axios.get( 'http://localhost:5000/api/customers' );
+      const newData = await response.data;
+      setCustomers( newData );
+    };
+
+    fetchCustomers();
+  }, [setCustomers] );
 
   return (
     <div>
@@ -18,7 +28,6 @@ function Customers ( { customers } ) {
           <p>Account number: { item.account_number }</p>
         </div>
       ) ) }
-      {console.log( customers ) }
     </div>
   );
 }
