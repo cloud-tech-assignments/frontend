@@ -1,42 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-<<<<<<< HEAD
 function Customers() {
-=======
-function Customers ({onChange}) {
->>>>>>> b7d7f67665ce64ca932aef483b20b29f96c5ce40
   const [customers, setCustomers] = useState([]);
-  const [latency, setLatency] = useState({t4: '', t3: ''});
-  const {t4, t3} = latency;
+  const [latency, setLatency] = useState('');
   useEffect(() => {
     const fetchCustomers = async () => {
-<<<<<<< HEAD
+      const t1 = Date.now();
       const response = await axios.get(
-        'https://backend-cloud-01.herokuapp.com/api/customers/all'
+        'http://localhost:5000/api/customers/all'
       );
-=======
-      const response = await axios.get('https://backend-cloud-01.herokuapp.com/api/customers/all');
->>>>>>> b7d7f67665ce64ca932aef483b20b29f96c5ce40
-      const newData = await response.data.customers;
+      const newData = await response.data;
+      // end to end
       const t3 = Date.now();
-      const t4 = response.data.t4
-      const ms = new Date(t3 - t4)
-      setLatency({ms: ms.getMilliseconds()})
+      const end = t3 - t1;
 
+      // cloud communication
+      const t4 = newData.t4;
+      const t2 = newData.t2;
+      const cloud = t4 - t2;
 
-      console.log(" T3: " + t3 + " T4: " + t4 + " Latency: " + ms.getMilliseconds())
-      setCustomers(newData);
+      //End - Cloud = Communication
+      const com = end - cloud;
+      setLatency({ end, cloud, com });
+      console.log(newData);
+      setCustomers(newData.customers);
     };
 
     fetchCustomers();
-    onChange({t4, t3})
   }, [setCustomers]);
-
 
   return (
     <div>
-    <p>Latency (T3 - T4): {latency.ms}</p>
+      <p>Latency (EndToEnd: T3 - T1): {latency.end} ms</p>
+      <p>Latency (Cloud Process: T4 - T2): {latency.cloud} ms</p>
+      <p>Latency (Comunication: (T3 - T1) - (T4 - T2)): {latency.com} ms</p>
       <h1>Total customers: {customers.length}</h1>
       <div className="customer-container">
         {customers.map((item, index) => (

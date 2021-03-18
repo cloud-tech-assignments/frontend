@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-<<<<<<< HEAD
-function UpdateCustomers() {
-=======
 import './UpdateCustomers.css';
 
-function UpdateCustomers ({onChange}) {
->>>>>>> b7d7f67665ce64ca932aef483b20b29f96c5ce40
+function UpdateCustomers() {
   const [currentCustomer, setCurrentCustomer] = useState({});
   const [customers, setCustomers] = useState([]);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -16,13 +12,9 @@ function UpdateCustomers ({onChange}) {
 
   useEffect(() => {
     const fetchCustomers = async () => {
-<<<<<<< HEAD
       const response = await axios.get(
-        'https://backend-cloud-01.herokuapp.com/api/customers/all'
+        'http://localhost:5000/api/customers/all'
       );
-=======
-      const response = await axios.get('https://backend-cloud-01.herokuapp.com/api/customers/all');
->>>>>>> b7d7f67665ce64ca932aef483b20b29f96c5ce40
       const newData = await response.data.customers;
       setCustomers(newData);
     };
@@ -37,34 +29,35 @@ function UpdateCustomers ({onChange}) {
   };
 
   const onSubmit = (e) => {
+    const t1 = Date.now();
     e.preventDefault();
     setIsUpdating(false);
-<<<<<<< HEAD
     axios
       .put(
-        `https://backend-cloud-01.herokuapp.com/api/customers/${customerPersonalNumber}`,
-        currentCustomer
+        `http://localhost:5000/api/customers/${customerPersonalNumber}`,
+        currentCustomer,
+        { t3: Date.now() }
       )
       .then((response) => {
         const newCustomers = [...customers];
         const { index } = currentCustomer;
+        // end to end
+        const t3 = response.config.t3;
+        const end = Number(t3 - t1);
+
+        // cloud communication
+        const t4 = response.data.t4;
+        const t2 = response.data.t2;
+        const cloud = Number(t4 - t2);
+
+        //End - Cloud = Communication
+        const com = end - cloud;
+
+        setLatency({ end, cloud, com });
+        console.log(response);
         newCustomers[index] = response.data.updatedCustomer;
         setCustomers([...newCustomers]);
       });
-=======
-    axios.put(`https://backend-cloud-01.herokuapp.com/api/customers/${ customerPersonalNumber }`, currentCustomer, {t2: Date.now()}).then((response) => {
-      const newCustomers = [...customers];
-      const { index } = currentCustomer;
-      const t1 = Date.now();
-      const t2 = response.config.t2;
-      const ms = new Date(t1 - t2)
-      setLatency({ms: ms.getMilliseconds()})
-      onChange({t1, t2})
-      console.log(" T1: " + t1 + " T2: " + t2 + " Latency: " + Number(t1 - t2));
-      newCustomers[index] = response.data.updatedCustomer;
-      setCustomers([...newCustomers]);
-    });
->>>>>>> b7d7f67665ce64ca932aef483b20b29f96c5ce40
   };
 
   const getCustomerIndex = (idx) => {
@@ -79,132 +72,88 @@ function UpdateCustomers ({onChange}) {
       <form onSubmit={onSubmit}>
         <label>
           Personal Number:
-<<<<<<< HEAD
           <input
             type="number"
             name="personal_number"
             defaultValue={customer.personal_number}
-            onChange={onChange}
           />
-=======
-          <input type='number' name='personal_number' defaultValue={customer.personal_number} onChange={onInputChange} />
->>>>>>> b7d7f67665ce64ca932aef483b20b29f96c5ce40
         </label>
         <label>
           First name:
-<<<<<<< HEAD
           <input
             type="text"
             name="first_name"
             defaultValue={customer.first_name}
-            onChange={onChange}
+            onChange={onInputChange}
           />
-=======
-          <input type='text' name='first_name' defaultValue={customer.first_name} onChange={onInputChange} />
->>>>>>> b7d7f67665ce64ca932aef483b20b29f96c5ce40
         </label>
         <label>
           Last name:
-<<<<<<< HEAD
           <input
             type="text"
             name="last_name"
             defaultValue={customer.last_name}
-            onChange={onChange}
+            onChange={onInputChange}
           />
-=======
-          <input type='text' name='last_name' defaultValue={customer.last_name} onChange={onInputChange} />
->>>>>>> b7d7f67665ce64ca932aef483b20b29f96c5ce40
         </label>
         <label>
           Date Of Birth:
-<<<<<<< HEAD
           <input
             type="text"
             name="date_of_birth"
             defaultValue={customer.date_of_birth}
-            onChange={onChange}
+            onChange={onInputChange}
           />
-=======
-          <input type='text' name='date_of_birth' defaultValue={customer.date_of_birth} onChange={onInputChange} />
->>>>>>> b7d7f67665ce64ca932aef483b20b29f96c5ce40
         </label>
         <label>
           City:
-<<<<<<< HEAD
           <input
             type="text"
             name="city"
             defaultValue={customer.city}
-            onChange={onChange}
+            onChange={onInputChange}
           />
-=======
-          <input type='text' name='city' defaultValue={customer.city} onChange={onInputChange} />
->>>>>>> b7d7f67665ce64ca932aef483b20b29f96c5ce40
         </label>
         <label>
           Account Number:
-<<<<<<< HEAD
           <input
             type="number"
             name="account_number"
             defaultValue={customer.account_number}
-            onChange={onChange}
+            onChange={onInputChange}
           />
         </label>
-        <input type="submit" value="Update" />
+        <input type="submit" value="Submit" />
       </form>
     );
-=======
-          <input type='number' name='account_number' defaultValue={customer.account_number} onChange={onInputChange} />
-        </label>
-        <input type='submit' value='Submit' />
-      </form>);
->>>>>>> b7d7f67665ce64ca932aef483b20b29f96c5ce40
   } else {
     return (
       <>
         <div>
-    <p>Latency (T1 - T2): {latency.ms}</p>
+          <p>Latency (EndToEnd: T3 - T1): {latency.end} ms</p>
+          <p>Latency (Cloud Process: T4 - T2): {latency.cloud} ms</p>
+          <p>Latency (Comunication: (T3 - T1) - (T4 - T2)): {latency.com} ms</p>
           <h2>Select customer to update</h2>
-<<<<<<< HEAD
-          {customers.map((customer, i) => (
-            <div key={i}>
-              <h3>{`Personal number: ${customer.personal_number}`}</h3>
-              <p>First name: {customer.first_name}</p>
-              <p>Last name: {customer.last_name}</p>
-              <p>DOB: {customer.date_of_birth}</p>
-              <p>City: {customer.city}</p>
-              <p>Account number: {customer.account_number}</p>
-              <button
-                onClick={() => {
-                  getCustomerIndex(i);
-                }}
-              >
-                {' '}
-                Update
-              </button>
-            </div>
-          ))}
-=======
           <div className="customer-container">
             {customers.map((customer, i) => (
               <div key={i} className="customer-item">
-                <h3>
-                  {`Personal number: ${ customer.personal_number }`}
-                </h3>
+                <h3>{`Personal number: ${customer.personal_number}`}</h3>
                 <p>First name: {customer.first_name}</p>
                 <p>Last name: {customer.last_name}</p>
                 <p>DOB: {customer.date_of_birth}</p>
                 <p>City: {customer.city}</p>
                 <p>Account number: {customer.account_number}</p>
-                <button className="button" onClick={() => {
-                  getCustomerIndex(i);
-                }}>Update</button>
+                <button
+                  className="button"
+                  onClick={() => {
+                    getCustomerIndex(i);
+                  }}
+                >
+                  Update
+                </button>
               </div>
             ))}
           </div>
->>>>>>> b7d7f67665ce64ca932aef483b20b29f96c5ce40
         </div>
       </>
     );
