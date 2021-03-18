@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function Customers () {
+function Customers() {
   const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
     const fetchCustomers = async () => {
-      const response = await axios.get('http://localhost:5000/api/customers/all');
+      const response = await axios.get(
+        'https://backend-cloud-01.herokuapp.com/api/customers/all'
+      );
       const newData = await response.data.customers;
       setCustomers(newData);
     };

@@ -7,56 +7,61 @@ const initialState = {
   last_name: '',
   date_of_birth: '',
   city: '',
-  account_number: ''
+  account_number: '',
 };
 
-function AddCustomers () {
+function AddCustomers() {
   const [newCustomer, setNewCustomer] = useState(initialState);
 
   const onChange = (e) => {
     setNewCustomer({
       ...newCustomer,
-      [e.target.name]: e.target.value.trim()
+      [e.target.name]: e.target.value.trim(),
     });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log({ newCustomer });
-    axios.post('http://localhost:5000/api/customers/', newCustomer).then((response) => {
-      console.log(response);
-    });
+    axios
+      .post(
+        'https://backend-cloud-01.herokuapp.com/api/customers/',
+        newCustomer
+      )
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   return (
     <div>
       <form onSubmit={onSubmit}>
-        <label >
+        <label>
           Personal Number:
-          <input type='number' name='personal_number' onChange={onChange} />
+          <input type="number" name="personal_number" onChange={onChange} />
         </label>
-        <label >
+        <label>
           First name:
-          <input type='text' name='first_name' onChange={onChange} />
+          <input type="text" name="first_name" onChange={onChange} />
         </label>
-        <label >
+        <label>
           Last name:
-          <input type='text' name='last_name' onChange={onChange} />
+          <input type="text" name="last_name" onChange={onChange} />
         </label>
-        <label >
+        <label>
           Date Of Birth:
-          <input type='text' name='date_of_birth' onChange={onChange} />
+          <input type="text" name="date_of_birth" onChange={onChange} />
         </label>
-        <label >
+        <label>
           City:
-          <input type='text' name='city' onChange={onChange} />
+          <input type="text" name="city" onChange={onChange} />
         </label>
 
-        <label >
+        <label>
           Account Number:
-          <input type='number' name='account_number' onChange={onChange} />
+          <input type="number" name="account_number" onChange={onChange} />
         </label>
-        <input type='submit' value='Create' />
+        <input type="submit" value="Create" />
       </form>
     </div>
   );
