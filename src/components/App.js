@@ -6,6 +6,7 @@ import AddCustomers from './AddCustomers';
 import UpdateCustomers from './UpdateCustomers';
 import DeleteCustomers from './DeleteCustomers';
 import Menu from './Menu';
+import SearchCustomers from './SearchCustomers';
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
         <Router>
           <Menu />
           <Switch>
+            <Route path="/search">
+              <SearchCustomers />
+            </Route>
             <Route path="/add">
               <AddCustomers />
             </Route>
