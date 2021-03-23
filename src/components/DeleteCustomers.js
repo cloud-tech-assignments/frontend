@@ -14,7 +14,6 @@ function UpdateCustomers() {
         'https://backend-cloud-01.herokuapp.com/api/customers/all'
       );
       const newData = await response.data.customers;
-      console.log(response);
       setCustomers(newData);
     };
     fetchCustomers();
@@ -45,6 +44,8 @@ function UpdateCustomers() {
         console.log(response);
         setLatency({ end, cloud, com });
         deletedCustomers[index] = response.data.deletedCustomer;
+        console.log(response.data.deletedCustomer);
+        console.log(deletedCustomers);
         setCustomers([...deletedCustomers]);
       });
   };
