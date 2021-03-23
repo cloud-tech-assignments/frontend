@@ -24,9 +24,13 @@ function AddCustomers() {
   const onSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:5000/api/customers/', newCustomer, {
-        t1: Date.now(),
-      })
+      .post(
+        'https://backend-cloud-01.herokuapp.com/api/customers/',
+        newCustomer,
+        {
+          t1: Date.now(),
+        }
+      )
       .then((response) => {
         // end to end
         const t1 = response.config.t1;

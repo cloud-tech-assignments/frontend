@@ -8,7 +8,7 @@ function Customers() {
     const fetchCustomers = async () => {
       const t1 = Date.now();
       const response = await axios.get(
-        'http://localhost:5000/api/customers/all'
+        'https://backend-cloud-01.herokuapp.com/api/customers/all'
       );
       const newData = await response.data;
       // end to end

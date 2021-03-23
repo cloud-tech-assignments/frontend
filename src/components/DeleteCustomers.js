@@ -11,7 +11,7 @@ function UpdateCustomers() {
   useEffect(() => {
     const fetchCustomers = async () => {
       const response = await axios.get(
-        'http://localhost:5000/api/customers/all'
+        'https://backend-cloud-01.herokuapp.com/api/customers/all'
       );
       const newData = await response.data.customers;
       console.log(response);
@@ -25,7 +25,7 @@ function UpdateCustomers() {
     setIsUpdating(false);
     axios
       .delete(
-        `http://localhost:5000/api/customers/${customerPersonalNumber}`,
+        `https://backend-cloud-01.herokuapp.com/api/customers/${customerPersonalNumber}`,
         currentCustomer
       )
       .then((response) => {

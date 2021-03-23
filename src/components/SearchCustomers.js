@@ -12,7 +12,7 @@ function SearchCustomers() {
     const t1 = Date.now();
     axios
       .get(
-        `http://localhost:5000/api/customers/${customerPersonalNumber}`,
+        `https://backend-cloud-01.herokuapp.com/api/customers/${customerPersonalNumber}`,
         customer
       )
       .then((response) => {
