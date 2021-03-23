@@ -4,7 +4,7 @@ import axios from 'axios';
 
 function SearchCustomers() {
   const [latency, setLatency] = useState('');
-  const [customer, setCustomer] = useState({});
+  const [customer, setCustomer] = useState('');
   const [customerPersonalNumber, setCustomerPersonalNumber] = useState(null);
 
   const onSubmit = (e) => {
@@ -34,9 +34,27 @@ function SearchCustomers() {
   };
 
   const getPersonalNumber = (e) => {
-    console.log(e.target.value);
     setCustomerPersonalNumber(e.target.value);
   };
+
+  let renderCustomer;
+  if (customer == null) {
+    renderCustomer = <p>Customer does not exist</p>;
+  } else if (!customer) {
+    renderCustomer = '';
+    console.log(customer);
+  } else {
+    renderCustomer = (
+      <div className="customer-item">
+        <h2>{`Personal number: ${customer.personal_number}`}</h2>
+        <p>First name: {customer.first_name}</p>
+        <p>Last name: {customer.last_name}</p>
+        <p>DOB: {customer.date_of_birth}</p>
+        <p>City: {customer.city}</p>
+        <p>Account number: {customer.account_number}</p>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -53,19 +71,11 @@ function SearchCustomers() {
             onChange={getPersonalNumber}
           />
         </label>
-
         <input type="submit" value="Search" />
       </form>
       <div>
         <hr />
-        <div className="customer-item">
-          <h2>{`Personal number: ${customer.personal_number}`}</h2>
-          <p>First name: {customer.first_name}</p>
-          <p>Last name: {customer.last_name}</p>
-          <p>DOB: {customer.date_of_birth}</p>
-          <p>City: {customer.city}</p>
-          <p>Account number: {customer.account_number}</p>
-        </div>
+        {renderCustomer}
       </div>
     </div>
   );
