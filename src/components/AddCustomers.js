@@ -45,7 +45,6 @@ function AddCustomers() {
         //End - Cloud = Communication
         const com = end - cloud;
         setLatency({ end, cloud, com });
-        console.log(response);
         setNewCustomer(response.data.newCustomer);
       });
   };

@@ -71,14 +71,6 @@ function UpdateCustomers() {
     return (
       <form onSubmit={onSubmit}>
         <label>
-          Personal Number:
-          <input
-            type="number"
-            name="personal_number"
-            defaultValue={customer.personal_number}
-          />
-        </label>
-        <label>
           First name:
           <input
             type="text"
