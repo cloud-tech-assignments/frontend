@@ -35,14 +35,13 @@ function UpdateCustomers() {
     axios
       .put(
         `https://backend-cloud-01.herokuapp.com/api/customers/${customerPersonalNumber}`,
-        currentCustomer,
-        { t3: Date.now() }
+        currentCustomer
       )
       .then((response) => {
         const newCustomers = [...customers];
         const { index } = currentCustomer;
         // end to end
-        const t3 = response.config.t3;
+        const t3 = Date.now();
         const end = Number(t3 - t1);
 
         // cloud communication
