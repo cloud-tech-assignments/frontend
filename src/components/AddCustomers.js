@@ -74,7 +74,7 @@ function AddCustomers() {
         </label>
         <label>
           Date Of Birth:
-          <input type="text" name="date_of_birth" onChange={onInputChange} />
+          <input type="date" name="date_of_birth" onChange={onInputChange} />
         </label>
         <label>
           City:

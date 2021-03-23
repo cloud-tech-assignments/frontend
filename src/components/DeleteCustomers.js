@@ -29,6 +29,8 @@ function UpdateCustomers() {
         currentCustomer
       )
       .then((response) => {
+        const deletedCustomers = [...customers];
+        const { index } = currentCustomer;
         // end to end
         const t3 = Date.now();
         const end = t3 - t1;
@@ -42,6 +44,8 @@ function UpdateCustomers() {
         const com = end - cloud;
         console.log(response);
         setLatency({ end, cloud, com });
+        deletedCustomers[index] = response.data.deletedCustomer;
+        setCustomers([...deletedCustomers]);
       });
   };
 
@@ -91,7 +95,6 @@ function UpdateCustomers() {
                   getCustomerIndex(i);
                 }}
               >
-                {' '}
                 Remove
               </button>
             </div>
