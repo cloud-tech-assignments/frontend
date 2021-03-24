@@ -27,7 +27,6 @@ function SearchCustomers() {
 
         //End - Cloud = Communication
         const com = end - cloud;
-        console.log(response);
         setCustomer(response.data.customer);
         setLatency({ end, cloud, com });
       });
@@ -42,14 +41,13 @@ function SearchCustomers() {
     renderCustomer = <p>Customer does not exist</p>;
   } else if (!customer) {
     renderCustomer = '';
-    console.log(customer);
   } else {
     renderCustomer = (
       <div className="customer-item">
         <h2>{`Personal number: ${customer.personal_number}`}</h2>
         <p>First name: {customer.first_name}</p>
         <p>Last name: {customer.last_name}</p>
-        <p>DOB: {customer.date_of_birth.toISOString().split('T')[0]}</p>
+        <p>DOB: {new Date(customer.date_of_birth).toLocaleDateString()}</p>
         <p>City: {customer.city}</p>
         <p>Account number: {customer.account_number}</p>
       </div>

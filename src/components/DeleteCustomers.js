@@ -24,11 +24,12 @@ function UpdateCustomers() {
     setIsUpdating(false);
     axios
       .delete(
-        `https://backend-cloud-01.herokuapp.com/api/customers/${customerPersonalNumber}`,
+        `http://www.localhost:5000/api/customers/${customerPersonalNumber}`,
         currentCustomer
       )
       .then((response) => {
         const deletedCustomers = [...customers];
+        const { index } = currentCustomer;
         // end to end
         const t3 = Date.now();
         const end = t3 - t1;
@@ -40,10 +41,8 @@ function UpdateCustomers() {
 
         //End - Cloud = Communication
         const com = end - cloud;
-        console.log(response);
         setLatency({ end, cloud, com });
-        console.log(response.data.deletedCustomer);
-        console.log(deletedCustomers);
+        deletedCustomers[index] = response.data.deletedCustomer;
         setCustomers([...deletedCustomers]);
       });
   };
@@ -85,7 +84,7 @@ function UpdateCustomers() {
               <h3>{`Personal number: ${customer.personal_number}`}</h3>
               <p>First name: {customer.first_name}</p>
               <p>Last name: {customer.last_name}</p>
-              <p>DOB: {customer.date_of_birth.toISOString().split('T')[0]}</p>
+              <p>DOB: {new Date(customer.date_of_birth).toLocaleDateString()}</p>
               <p>City: {customer.city}</p>
               <p>Account number: {customer.account_number}</p>
               <button

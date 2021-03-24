@@ -53,7 +53,6 @@ function UpdateCustomers() {
         const com = end - cloud;
 
         setLatency({ end, cloud, com });
-        console.log(response);
         newCustomers[index] = response.data.updatedCustomer;
         setCustomers([...newCustomers]);
       });
@@ -64,6 +63,8 @@ function UpdateCustomers() {
     setCurrentCustomer({ customer: customers[idx], index: idx });
     setCustomerPersonalNumber(customers[idx].personal_number);
   };
+
+  console.log(customers.map((customer)=>{return new Date(customer.date_of_birth).toLocaleDateString()}))
 
   if (isUpdating === true) {
     const { customer } = currentCustomer;
@@ -126,12 +127,14 @@ function UpdateCustomers() {
           <p>Latency (Comunication: (T3 - T1) - (T4 - T2)): {latency.com} ms</p>
           <h2>Select customer to update</h2>
           <div className="customer-container">
-            {customers.map((customer, i) => (
+            {customers.map((customer, i) => {
+              const dob = new Date(customer.date_of_birth).toLocaleDateString()
+              return (
               <div key={i} className="customer-item">
                 <h3>{`Personal number: ${customer.personal_number}`}</h3>
                 <p>First name: {customer.first_name}</p>
                 <p>Last name: {customer.last_name}</p>
-                <p>DOB: {customer.date_of_birth.toISOString().split('T')[0]}</p>
+                <p>DOB: {dob}</p>
                 <p>City: {customer.city}</p>
                 <p>Account number: {customer.account_number}</p>
                 <button
@@ -143,7 +146,7 @@ function UpdateCustomers() {
                   Update
                 </button>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </>

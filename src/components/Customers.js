@@ -23,7 +23,6 @@ function Customers() {
       //End - Cloud = Communication
       const com = end - cloud;
       setLatency({ end, cloud, com });
-      console.log(newData);
       setCustomers(newData.customers);
     };
 
@@ -42,7 +41,7 @@ function Customers() {
             <h2>Customer: {index + 1}</h2>
             <p>First name: {item.first_name}</p>
             <p>Last name: {item.last_name}</p>
-            <p>DOB: {item.date_of_birth.toISOString().split('T')[0]}</p>
+            <p>DOB: {new Date(item.date_of_birth).toLocaleDateString()}</p>
             <p>City: {item.city}</p>
             <p>Personal number: {item.personal_number}</p>
             <p>Account number: {item.account_number}</p>
