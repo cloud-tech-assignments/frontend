@@ -87,15 +87,6 @@ function UpdateCustomers() {
           />
         </label>
         <label>
-          Date Of Birth:
-          <input
-            type="date"
-            name="date_of_birth"
-            defaultValue={customer.date_of_birth}
-            onChange={onInputChange}
-          />
-        </label>
-        <label>
           City:
           <input
             type="text"
