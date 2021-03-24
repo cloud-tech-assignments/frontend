@@ -59,7 +59,7 @@ function SearchCustomers() {
       <p>Latency (EndToEnd: T3 - T1): {latency.end} ms</p>
       <p>Latency (Cloud Process: T4 - T2): {latency.cloud} ms</p>
       <p>Latency (Comunication: (T3 - T1) - (T4 - T2)): {latency.com} ms</p>
-      <h2>Search for <del>CUMBER</del><ins>CUSTOMER</ins></h2>
+      <h2>Search for CUSTOMER</h2>
       <form onSubmit={onSubmit}>
         <label>
           Personal Number:
