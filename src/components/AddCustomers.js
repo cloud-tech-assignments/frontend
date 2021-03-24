@@ -83,7 +83,8 @@ function AddCustomers() {
         <p>Latency (Cloud Process: T4 - T2): {latency.cloud} ms</p>
         <p>latency (Comunication: (T3 - T1) - (T4 - T2)): {latency.com}ms</p>
         <div className="customer-item">
-          <h2>DO YOU SEE ACCOUNT NUMBER {renderNewCustomer.account_number} </h2>
+          <h3>Customer successfully created! </h3>
+          <h4>Generated account number is {renderNewCustomer.account_number} </h4>
           <p>First name: {renderNewCustomer.first_name}</p>
           <p>Last name: {renderNewCustomer.last_name}</p>
           <p>
@@ -92,7 +93,7 @@ function AddCustomers() {
           </p>
           <p>City: {renderNewCustomer.city}</p>
           <p>Personal number: {renderNewCustomer.personal_number}</p>
-          <button onClick={() => setIsUpdating(false)}>HAVE YOU DONE VERY GOOD JOB?</button>
+          <button onClick={() => setIsUpdating(false)}>Go back</button>
         </div>
       </div>
     );

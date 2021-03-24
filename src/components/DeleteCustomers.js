@@ -7,6 +7,7 @@ function UpdateCustomers() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [customerPersonalNumber, setCustomerPersonalNumber] = useState(null);
   const [latency, setLatency] = useState('');
+  const [renderDeleted, setRenderDeleted] = useState(false)
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -43,7 +44,10 @@ function UpdateCustomers() {
         const com = end - cloud;
         setLatency({ end, cloud, com });
         deletedCustomers[index] = response.data.deletedCustomer;
-        setCustomers([...deletedCustomers]);
+        const customerList = [...customers];
+        const filteredList = customerList.filter(current => current !== currentCustomer.customer);
+        setCustomers(filteredList);
+        setRenderDeleted(true);
       });
   };
 
@@ -71,7 +75,29 @@ function UpdateCustomers() {
         </div>
       </div>
     );
-  } else {
+  } else if(renderDeleted){
+      return (
+        <div className="customer-item">
+        <h2>Customer deleted</h2>
+          <h3>{`Personal number: ${currentCustomer.customer.personal_number}`}</h3>
+          <p>First name: {currentCustomer.customer.first_name}</p>
+          <p>Last name: {currentCustomer.customer.last_name}</p>
+          <p>
+            DOB: {new Date(currentCustomer.customer.date_of_birth).toLocaleDateString()}
+          </p>
+          <p>City: {currentCustomer.customer.city}</p>
+          <p>Account number: {currentCustomer.customer.account_number}</p>
+          <button
+            className="button"
+            onClick={() => {
+              setRenderDeleted(false);
+            }}
+          >
+            Go back
+          </button>
+        </div>
+      );
+  }else{
     return (
       <>
         <p>Latency (EndToEnd: T3 - T1): {latency.end} ms</p>
@@ -100,7 +126,9 @@ function UpdateCustomers() {
         </div>
       </>
     );
+
   }
+
 }
 
 export default UpdateCustomers;
