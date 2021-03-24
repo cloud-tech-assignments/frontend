@@ -49,7 +49,7 @@ function SearchCustomers() {
         <h2>{`Personal number: ${customer.personal_number}`}</h2>
         <p>First name: {customer.first_name}</p>
         <p>Last name: {customer.last_name}</p>
-        <p>DOB: {customer.date_of_birth}</p>
+        <p>DOB: {customer.date_of_birth.toISOString().split('T')[0]}</p>
         <p>City: {customer.city}</p>
         <p>Account number: {customer.account_number}</p>
       </div>

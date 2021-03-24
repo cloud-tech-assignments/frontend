@@ -29,7 +29,6 @@ function UpdateCustomers() {
       )
       .then((response) => {
         const deletedCustomers = [...customers];
-        const { index } = currentCustomer;
         // end to end
         const t3 = Date.now();
         const end = t3 - t1;
@@ -43,7 +42,6 @@ function UpdateCustomers() {
         const com = end - cloud;
         console.log(response);
         setLatency({ end, cloud, com });
-        deletedCustomers[index] = response.data.deletedCustomer;
         console.log(response.data.deletedCustomer);
         console.log(deletedCustomers);
         setCustomers([...deletedCustomers]);
@@ -87,7 +85,7 @@ function UpdateCustomers() {
               <h3>{`Personal number: ${customer.personal_number}`}</h3>
               <p>First name: {customer.first_name}</p>
               <p>Last name: {customer.last_name}</p>
-              <p>DOB: {customer.date_of_birth}</p>
+              <p>DOB: {customer.date_of_birth.toISOString().split('T')[0]}</p>
               <p>City: {customer.city}</p>
               <p>Account number: {customer.account_number}</p>
               <button

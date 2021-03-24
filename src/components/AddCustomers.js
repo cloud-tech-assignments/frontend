@@ -62,27 +62,28 @@ function AddCustomers() {
             type="number"
             name="personal_number"
             onChange={onInputChange}
+            required
           />
         </label>
         <label>
           First name:
-          <input type="text" name="first_name" onChange={onInputChange} />
+          <input type="text" name="first_name" onChange={onInputChange} required/>
         </label>
         <label>
           Last name:
-          <input type="text" name="last_name" onChange={onInputChange} />
+          <input type="text" name="last_name" onChange={onInputChange} required/>
         </label>
         <label>
           Date Of Birth:
-          <input type="date" name="date_of_birth" onChange={onInputChange} />
+          <input type="date" name="date_of_birth" onChange={onInputChange} required/>
         </label>
         <label>
           City:
-          <input type="text" name="city" onChange={onInputChange} />
+          <input type="text" name="city" onChange={onInputChange} required/>
         </label>
         <label>
           Account Number:
-          <input type="number" name="account_number" onChange={onInputChange} />
+          <input type="number" name="account_number" onChange={onInputChange} required/>
         </label>
         <input type="submit" value="Create" />
       </form>
