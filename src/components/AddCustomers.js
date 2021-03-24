@@ -25,7 +25,7 @@ function AddCustomers() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    setIsUpdating(false)
+
     axios
       .post(
         'https://backend-cloud-01.herokuapp.com/api/customers/',
@@ -35,7 +35,6 @@ function AddCustomers() {
         }
       )
       .then((response) => {
-        console.log(response)
         // end to end
         const t1 = response.config.t1;
         const t3 = Date.now();
@@ -52,14 +51,32 @@ function AddCustomers() {
         setRenderCustomer(response.data.newCustomer)
         setLatency({ end, cloud, com });
         setNewCustomer(response.data.newCustomer);
+        setIsUpdating(true);
       }).catch((error)=>{
         if(error){
           setIsError(true);
         }
       })
+
   };
 
-  if (isUpdating === true) {
+      if (isError) {
+        return (
+          <div className="customer-container">
+            <div>
+              <h1>Oops! Something went wrong..</h1>
+              <p>Perhaps the personal number is already in use</p>
+              <button
+                onClick={() => {
+                  setIsError(false);
+                }}
+              >
+                Go back to add user
+              </button>
+            </div>
+          </div>
+        );
+      } else if (isUpdating === true) {
     return (
       <div>
         <p>Latency (EndToEnd: T3 - T1): {latency.end} ms</p>
@@ -79,23 +96,8 @@ function AddCustomers() {
         </div>
       </div>
     );
-  } else if(isError) {
-    return (
-      <div className="customer-container">
-        <div>
-          <h1>Oops! Something went wrong..</h1>
-          <p>User with personal number already exist</p>
-          <button
-            onClick={() => {
-              setIsError(false);
-            }}
-          >
-            Go back to add user
-          </button>
-        </div>
-      </div>
-    );
-  } else {
+  }
+   else {
     return (
       <div>
         <p>Latency (EndToEnd: T3 - T1): {latency.end} ms</p>
@@ -114,19 +116,34 @@ function AddCustomers() {
           </label>
           <label>
             First name:
-            <input type="text" name="first_name" onChange={onInputChange} />
+            <input
+              type="text"
+              name="first_name"
+              onChange={onInputChange}
+              required
+            />
           </label>
           <label>
             Last name:
-            <input type="text" name="last_name" onChange={onInputChange} />
+            <input
+              type="text"
+              name="last_name"
+              onChange={onInputChange}
+              required
+            />
           </label>
           <label>
             Date Of Birth:
-            <input type="date" name="date_of_birth" onChange={onInputChange} />
+            <input
+              type="date"
+              name="date_of_birth"
+              onChange={onInputChange}
+              required
+            />
           </label>
           <label>
             City:
-            <input type="text" name="city" onChange={onInputChange} />
+            <input type="text" name="city" onChange={onInputChange} required />
           </label>
           <input type="submit" value="Create" />
         </form>

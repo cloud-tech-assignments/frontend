@@ -64,8 +64,6 @@ function UpdateCustomers() {
     setCustomerPersonalNumber(customers[idx].personal_number);
   };
 
-  console.log(customers.map((customer)=>{return new Date(customer.date_of_birth).toLocaleDateString()}))
-
   if (isUpdating === true) {
     const { customer } = currentCustomer;
     return (

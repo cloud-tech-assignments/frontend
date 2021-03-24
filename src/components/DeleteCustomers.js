@@ -24,7 +24,7 @@ function UpdateCustomers() {
     setIsUpdating(false);
     axios
       .delete(
-        `http://www.localhost:5000/api/customers/${customerPersonalNumber}`,
+        `https://backend-cloud-01.herokuapp.com/api/customers/${customerPersonalNumber}`,
         currentCustomer
       )
       .then((response) => {
