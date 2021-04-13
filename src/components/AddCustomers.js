@@ -26,7 +26,12 @@ function AddCustomers() {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    axios
+    let today = new Date(Date.now()).toISOString();
+
+    if(newCustomer.date_of_birth > today) {
+      return (alert("Date can't be in the future"));
+    } else {
+      axios
       .post(
         'https://backend-cloud-01.herokuapp.com/api/customers/',
         newCustomer,
@@ -57,6 +62,9 @@ function AddCustomers() {
           setIsError(true);
         }
       })
+    }
+
+    
 
   };
 
